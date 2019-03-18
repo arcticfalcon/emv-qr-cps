@@ -47,8 +47,8 @@ class MerchantAccountInformation extends Template
         // Parse content
         $subParts = EmvQrHelper::splitCode($parts[2]);
 
-        $gui = GloballyUniqueIdentifier::tryParse($subParts[GloballyUniqueIdentifier::getId()]);
-        unset($subParts[GloballyUniqueIdentifier::getId()]);
+        $gui = GloballyUniqueIdentifier::tryParse($subParts[GloballyUniqueIdentifier::getStaticId()]);
+        unset($subParts[GloballyUniqueIdentifier::getStaticId()]);
 
         // Create instance
         $new = new static($parts[0], $gui);
@@ -64,7 +64,7 @@ class MerchantAccountInformation extends Template
         return $new;
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         throw new \LogicException();
     }

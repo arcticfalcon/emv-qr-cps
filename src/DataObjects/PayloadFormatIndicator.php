@@ -19,21 +19,21 @@ class PayloadFormatIndicator extends DataObject
 {
     public function __construct()
     {
-        parent::__construct(static::getId(), 2, '01');
+        parent::__construct(static::getStaticId(), 2, '01');
     }
 
     public static function tryParse(string $data)
     {
         $parts = parent::split($data);
 
-        if ($parts[0] === static::getId()) {
+        if ($parts[0] === static::getStaticId()) {
             return new static();
         }
 
         return null;
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         return '00';
     }

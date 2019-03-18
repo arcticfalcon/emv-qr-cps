@@ -22,12 +22,12 @@ class CRC extends DataObject
     public function __construct(string $data)
     {
         $crc = new Crc16(CrcParams::ccittFalse());
-        $checksum = $crc->hashString($data . static::getId() . '04');
+        $checksum = $crc->hashString($data . static::getStaticId() . '04');
         if (mb_strlen($checksum) > 4) {
             $checksum = mb_substr($checksum, -4, 4);
         }
 
-        parent::__construct(static::getId(), 4, mb_strtoupper($checksum));
+        parent::__construct(static::getStaticId(), 4, mb_strtoupper($checksum));
     }
 
     public static function tryParse(string $data)
@@ -35,7 +35,7 @@ class CRC extends DataObject
         throw new \LogicException();
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         return '63';
     }

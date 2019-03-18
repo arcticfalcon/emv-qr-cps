@@ -166,18 +166,18 @@ class MerchantPayload
         /** @var MerchantPayload $new */
         $new = $reflection->newInstanceWithoutConstructor();
 
-        $new->payloadFormatIndicator = PayloadFormatIndicator::tryParse($parts[PayloadFormatIndicator::getId()]);
-        $new->pointOfInitializationMethod = PointOfInitializationMethod::tryParse($parts[PointOfInitializationMethod::getId()]);
-        $new->merchantCategoryCode = MerchantCategoryCode::tryParse($parts[MerchantCategoryCode::getId()]);
-        $new->transactionCurrency = TransactionCurrency::tryParse($parts[TransactionCurrency::getId()]);
-        $new->transactionAmount = isset($parts[TransactionAmount::getId()]) ? TransactionAmount::tryParse($parts[TransactionAmount::getId()]) : null;
-        $new->tipOrConvenienceIndicator = isset($parts[TipOrConvenienceIndicator::getId()]) ? TipOrConvenienceIndicator::tryParse($parts[TipOrConvenienceIndicator::getId()]) : null;
-        $new->valueOfConvenienceFeeFixed = isset($parts[ValueOfConvenienceFeeFixed::getId()]) ? ValueOfConvenienceFeeFixed::tryParse($parts[ValueOfConvenienceFeeFixed::getId()]) : null;
-        $new->valueOfConvenienceFeePercentage = isset($parts[ValueOfConvenienceFeePercentage::getId()]) ? ValueOfConvenienceFeePercentage::tryParse($parts[ValueOfConvenienceFeePercentage::getId()]) : null;
-        $new->countryCode = CountryCode::tryParse($parts[CountryCode::getId()]);
-        $new->merchantName = MerchantName::tryParse($parts[MerchantName::getId()]);
-        $new->merchantCity = MerchantCity::tryParse($parts[MerchantCity::getId()]);
-        $new->postalCode = isset($parts[PostalCode::getId()]) ? PostalCode::tryParse($parts[PostalCode::getId()]) : null;
+        $new->payloadFormatIndicator = PayloadFormatIndicator::tryParse($parts[PayloadFormatIndicator::getStaticId()]);
+        $new->pointOfInitializationMethod = PointOfInitializationMethod::tryParse($parts[PointOfInitializationMethod::getStaticId()]);
+        $new->merchantCategoryCode = MerchantCategoryCode::tryParse($parts[MerchantCategoryCode::getStaticId()]);
+        $new->transactionCurrency = TransactionCurrency::tryParse($parts[TransactionCurrency::getStaticId()]);
+        $new->transactionAmount = isset($parts[TransactionAmount::getStaticId()]) ? TransactionAmount::tryParse($parts[TransactionAmount::getStaticId()]) : null;
+        $new->tipOrConvenienceIndicator = isset($parts[TipOrConvenienceIndicator::getStaticId()]) ? TipOrConvenienceIndicator::tryParse($parts[TipOrConvenienceIndicator::getStaticId()]) : null;
+        $new->valueOfConvenienceFeeFixed = isset($parts[ValueOfConvenienceFeeFixed::getStaticId()]) ? ValueOfConvenienceFeeFixed::tryParse($parts[ValueOfConvenienceFeeFixed::getStaticId()]) : null;
+        $new->valueOfConvenienceFeePercentage = isset($parts[ValueOfConvenienceFeePercentage::getStaticId()]) ? ValueOfConvenienceFeePercentage::tryParse($parts[ValueOfConvenienceFeePercentage::getStaticId()]) : null;
+        $new->countryCode = CountryCode::tryParse($parts[CountryCode::getStaticId()]);
+        $new->merchantName = MerchantName::tryParse($parts[MerchantName::getStaticId()]);
+        $new->merchantCity = MerchantCity::tryParse($parts[MerchantCity::getStaticId()]);
+        $new->postalCode = isset($parts[PostalCode::getStaticId()]) ? PostalCode::tryParse($parts[PostalCode::getStaticId()]) : null;
 
         foreach ($parts as $id => $part) {
             if (MerchantAccountInformation::matchesId((string) $id)) {

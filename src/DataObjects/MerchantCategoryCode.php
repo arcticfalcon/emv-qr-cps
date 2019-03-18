@@ -21,21 +21,21 @@ class MerchantCategoryCode extends DataObject
     {
         $this->assertLength(4, $value);
 
-        parent::__construct(static::getId(), 4, $value);
+        parent::__construct(static::getStaticId(), 4, $value);
     }
 
     public static function tryParse(string $data)
     {
         $parts = parent::split($data);
 
-        if ($parts[0] === static::getId()) {
+        if ($parts[0] === static::getStaticId()) {
             return new static($parts[2]);
         }
 
         return null;
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         return '52';
     }

@@ -32,7 +32,7 @@ class NullDataObject extends DataObject
         throw new \LogicException();
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         throw new \LogicException();
     }

@@ -41,11 +41,11 @@ abstract class DataObject
 
     abstract public static function tryParse(string $data);
 
-    abstract public static function getId(): string;
+    abstract public static function getStaticId(): string;
 
     public static function matchesId(string $id): bool
     {
-        return static::getId() === $id;
+        return static::getStaticId() === $id;
     }
 
     protected static function split(string $data): array
@@ -76,6 +76,11 @@ abstract class DataObject
         if (! in_array($value, $possible)) {
             throw new EmvQrException('Invalid DataObject possible value: ' . $value);
         }
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getLength(): int

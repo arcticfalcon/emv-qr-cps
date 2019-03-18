@@ -31,7 +31,7 @@ class PaymentNetworkSpecific extends DataObject
         return new static($parts[0], $parts[2]);
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         throw new \LogicException();
     }

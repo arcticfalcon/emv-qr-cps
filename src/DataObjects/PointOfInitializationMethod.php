@@ -24,21 +24,21 @@ class PointOfInitializationMethod extends DataObject
     {
         $this->assertPossibleValues([static::STATIC, static::DYNAMIC], $value);
 
-        parent::__construct(static::getId(), 2, $value);
+        parent::__construct(static::getStaticId(), 2, $value);
     }
 
     public static function tryParse(string $data)
     {
         $parts = parent::split($data);
 
-        if ($parts[0] === static::getId()) {
+        if ($parts[0] === static::getStaticId()) {
             return new static($parts[2]);
         }
 
         return null;
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         return '01';
     }

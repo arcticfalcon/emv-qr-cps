@@ -21,21 +21,21 @@ class GloballyUniqueIdentifier extends DataObject
     {
         $this->assertMaxLength(32, $value);
 
-        parent::__construct(static::getId(), strlen($value), $value);
+        parent::__construct(static::getStaticId(), strlen($value), $value);
     }
 
     public static function tryParse(string $data)
     {
         $parts = parent::split($data);
 
-        if ($parts[0] === static::getId()) {
+        if ($parts[0] === static::getStaticId()) {
             return new static($parts[2]);
         }
 
         return null;
     }
 
-    public static function getId(): string
+    public static function getStaticId(): string
     {
         return '00';
     }
