@@ -77,4 +77,14 @@ abstract class DataObject
             throw new EmvQrException('Invalid DataObject possible value: ' . $value);
         }
     }
+
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 }

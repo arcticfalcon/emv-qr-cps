@@ -204,4 +204,69 @@ class MerchantPayload
             throw new EmvQrException('Length of payload exceeded');
         }
     }
+
+    public function getPayloadFormatIndicator(): PayloadFormatIndicator
+    {
+        return $this->payloadFormatIndicator;
+    }
+
+    public function getPointOfInitializationMethod(): PointOfInitializationMethod
+    {
+        return $this->pointOfInitializationMethod;
+    }
+
+    public function getMerchantAccountInformationCollection(): array
+    {
+        return $this->merchantAccountInformationCollection;
+    }
+
+    public function getMerchantCategoryCode(): MerchantCategoryCode
+    {
+        return $this->merchantCategoryCode;
+    }
+
+    public function getTransactionCurrency(): TransactionCurrency
+    {
+        return $this->transactionCurrency;
+    }
+
+    public function getTransactionAmount()
+    {
+        return $this->transactionAmount;
+    }
+
+    public function getTipOrConvenienceIndicator()
+    {
+        return $this->tipOrConvenienceIndicator;
+    }
+
+    public function getValueOfConvenienceFeeFixed()
+    {
+        return $this->valueOfConvenienceFeeFixed;
+    }
+
+    public function getValueOfConvenienceFeePercentage()
+    {
+        return $this->valueOfConvenienceFeePercentage;
+    }
+
+    public function getCountryCode(): CountryCode
+    {
+        return $this->countryCode;
+    }
+
+    public function getMerchantName(): MerchantName
+    {
+        return $this->merchantName;
+    }
+
+    public function getMerchantCity(): MerchantCity
+    {
+        return $this->merchantCity;
+    }
+
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
 }
