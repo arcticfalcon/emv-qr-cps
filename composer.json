@@ -19,7 +19,7 @@
         "wiki": "https://github.com/arcticfalcon/emv-qr-cps/wiki"
     },
     "require": {
-        "php": "^7.2"
+        "php": "^7.1"
     },
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "^1",
