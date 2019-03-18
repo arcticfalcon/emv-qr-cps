@@ -21,7 +21,8 @@ class EmvQrTest extends TestCase
             Iso4217Currency::ARS,
             Iso3166Countries::ARGENTINA,
             'GLADYS MABEL GIMENEZ',
-            'VILLA BOSCH');
+            'VILLA BOSCH'
+        );
 
         static::assertEquals($original, (string)$payload);
     }
