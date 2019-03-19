@@ -24,10 +24,14 @@ abstract class DataObject
 
     public function __construct(string $id, int $length, string $value)
     {
-        $this->assertMaxLength(99, $value);
+        $this->assertLength(2, $id);
+        if ((int)$id < 0 || (int)$id > 99) {
+            throw new EmvQrException('Invalid Id value: ' . $id);
+        }
         if ($length < 1 || $length > 99) {
             throw new EmvQrException('Invalid DataObject length: ' . $length);
         }
+        $this->assertMaxLength(99, $value);
 
         $this->id = $id;
         $this->length = $length;
