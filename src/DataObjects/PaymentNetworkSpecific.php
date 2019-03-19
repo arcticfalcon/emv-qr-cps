@@ -30,8 +30,7 @@ class PaymentNetworkSpecific extends DataObject
             $parts = parent::split($data);
 
             return new static($parts[0], $parts[2]);
-        }
-        catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
     }

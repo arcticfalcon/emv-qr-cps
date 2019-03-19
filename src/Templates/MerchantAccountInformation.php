@@ -63,8 +63,7 @@ class MerchantAccountInformation extends Template
             }
 
             return $new;
-        }
-        catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
     }

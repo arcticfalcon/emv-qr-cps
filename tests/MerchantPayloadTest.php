@@ -173,7 +173,7 @@ class MerchantPayloadTest extends TestCase
         MerchantPayload::parse($original);
     }
 
-        public function testPayloadTooBig()
+    public function testPayloadTooBig()
     {
         $merchantAccountInformation = new MerchantAccountInformation(
             '43',
