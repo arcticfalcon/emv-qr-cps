@@ -9,7 +9,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Arcticfalcon\EmvQr\Templates;
 
@@ -42,26 +42,31 @@ class MerchantAccountInformation extends Template
 
     public static function tryParse(string $data)
     {
-        $parts = parent::split($data);
+        try {
+            $parts = parent::split($data);
 
-        // Parse content
-        $subParts = EmvQrHelper::splitCode($parts[2]);
+            // Parse content
+            $subParts = EmvQrHelper::splitCode($parts[2]);
 
-        $gui = GloballyUniqueIdentifier::tryParse($subParts[GloballyUniqueIdentifier::getStaticId()]);
-        unset($subParts[GloballyUniqueIdentifier::getStaticId()]);
+            $gui = GloballyUniqueIdentifier::tryParse($subParts[GloballyUniqueIdentifier::getStaticId()]);
+            unset($subParts[GloballyUniqueIdentifier::getStaticId()]);
 
-        // Create instance
-        $new = new static($parts[0], $gui);
+            // Create instance
+            $new = new static($parts[0], $gui);
 
-        // Add additional parts
-        foreach ($subParts as $subPart) {
-            $pns = PaymentNetworkSpecific::tryParse($subPart);
-            if ($pns) {
-                $new->addTemplateDataObject($pns);
+            // Add additional parts
+            foreach ($subParts as $subPart) {
+                $pns = PaymentNetworkSpecific::tryParse($subPart);
+                if ($pns) {
+                    $new->addTemplateDataObject($pns);
+                }
             }
-        }
 
-        return $new;
+            return $new;
+        }
+        catch (\Exception $exception){
+            return null;
+        }
     }
 
     public static function getStaticId(): string
@@ -78,7 +83,7 @@ class MerchantAccountInformation extends Template
     {
         $value = '';
         foreach ($this->dataObjects as $object) {
-            $value .= (string) $object;
+            $value .= (string)$object;
         }
 
         $this->assertMaxLength(99, $value);

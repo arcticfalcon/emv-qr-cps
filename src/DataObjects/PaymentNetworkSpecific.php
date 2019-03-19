@@ -26,9 +26,14 @@ class PaymentNetworkSpecific extends DataObject
 
     public static function tryParse(string $data)
     {
-        $parts = parent::split($data);
+        try {
+            $parts = parent::split($data);
 
-        return new static($parts[0], $parts[2]);
+            return new static($parts[0], $parts[2]);
+        }
+        catch (\Exception $exception){
+            return null;
+        }
     }
 
     public static function getStaticId(): string

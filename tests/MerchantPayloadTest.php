@@ -18,6 +18,7 @@ use Arcticfalcon\EmvQr\DataObjects\TransactionAmount;
 use Arcticfalcon\EmvQr\DataObjects\TransactionCurrency;
 use Arcticfalcon\EmvQr\DataObjects\ValueOfConvenienceFeeFixed;
 use Arcticfalcon\EmvQr\DataObjects\ValueOfConvenienceFeePercentage;
+use Arcticfalcon\EmvQr\EmvQrException;
 use Arcticfalcon\EmvQr\Iso3166Countries;
 use Arcticfalcon\EmvQr\Iso4217Currency;
 use Arcticfalcon\EmvQr\MerchantPayload;
@@ -140,5 +141,91 @@ class MerchantPayloadTest extends TestCase
         $qr = MerchantPayload::parse($original);
 
         static::assertEquals($original, (string) $qr);
+    }
+
+    public function testGetters()
+    {
+        $original = '00020101021248160012com.whatwhat52049700530318854031185502035702105802AR5903OOM6004LAND6104123463040E47';
+        $qr = MerchantPayload::parse($original);
+
+        $qr->getPayloadFormatIndicator();
+        $qr->getPointOfInitializationMethod();
+        $qr->getMerchantAccountInformationCollection();
+        $qr->getMerchantCategoryCode();
+        $qr->getTransactionCurrency();
+        $qr->getTransactionAmount();
+        $qr->getTipOrConvenienceIndicator();
+        $qr->getValueOfConvenienceFeeFixed();
+        $qr->getValueOfConvenienceFeePercentage();
+        $qr->getCountryCode();
+        $qr->getMerchantName();
+        $qr->getMerchantCity();
+        $qr->getPostalCode();
+
+        static::assertEquals($original, (string) $qr);
+    }
+
+    public function testInvalidCode()
+    {
+        static::expectException(EmvQrException::class);
+
+        $original = '00020101021248160012com.whatwhat52049700530318854031185502035702105802AR5903OOM6004LAND6104123463040E48';
+        MerchantPayload::parse($original);
+    }
+
+        public function testPayloadTooBig()
+    {
+        $merchantAccountInformation = new MerchantAccountInformation(
+            '43',
+            new GloballyUniqueIdentifier('com.mercadolibre')
+        );
+
+        $merchantPayload = new MerchantPayload(
+            new PayloadFormatIndicator(),
+            new PointOfInitializationMethod(PointOfInitializationMethod::STATIC),
+            $merchantAccountInformation,
+            new MerchantCategoryCode('9700'),
+            new TransactionCurrency(Iso4217Currency::ARS),
+            null,
+            null,
+            null,
+            null,
+            new CountryCode(Iso3166Countries::ARGENTINA),
+            new MerchantName('aaaaaaaaaaaaaaaaaaaaaaaaa'),
+            new MerchantCity('aaaaaaaaaaaaaaa'),
+            null
+        );
+
+
+        $info2 = new MerchantAccountInformation(
+            '47',
+            new GloballyUniqueIdentifier('23423412312371284909522712849095')
+        );
+        $info2->addTemplateDataObject(new PaymentNetworkSpecific('01', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'));
+        $merchantPayload->addMerchantAccountInformation($info2);
+
+        $info3 = new MerchantAccountInformation(
+            '48',
+            new GloballyUniqueIdentifier('23423412312371284909522712849095')
+        );
+        $info3->addTemplateDataObject(new PaymentNetworkSpecific('01', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'));
+        $merchantPayload->addMerchantAccountInformation($info3);
+
+        $info4 = new MerchantAccountInformation(
+            '49',
+            new GloballyUniqueIdentifier('23423412312371284909522712849095')
+        );
+        $info4->addTemplateDataObject(new PaymentNetworkSpecific('01', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'));
+        $merchantPayload->addMerchantAccountInformation($info4);
+
+        $info5 = new MerchantAccountInformation(
+            '50',
+            new GloballyUniqueIdentifier('23423412312371284909522712849095')
+        );
+        $info5->addTemplateDataObject(new PaymentNetworkSpecific('01', 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'));
+
+        static::expectException(EmvQrException::class);
+
+        $merchantPayload->addMerchantAccountInformation($info5);
     }
 }
