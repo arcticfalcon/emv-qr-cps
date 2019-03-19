@@ -27,7 +27,7 @@ class CRC extends DataObject
             $checksum = mb_substr($checksum, -4, 4);
         }
 
-        parent::__construct(static::getStaticId(), 4, mb_strtoupper($checksum));
+        parent::__construct(static::getStaticId(), 4, sprintf('%04s', mb_strtoupper($checksum)));
     }
 
     public static function tryParse(string $data)
