@@ -28,6 +28,9 @@ abstract class Template extends DataObject
         return $this->id . sprintf('%02d', strlen($value)) . $value;
     }
 
+    /**
+     * @return DataObject[]
+     */
     public function getDataObjects(): array
     {
         return $this->dataObjects;

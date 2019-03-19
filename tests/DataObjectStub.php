@@ -9,31 +9,27 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Arcticfalcon\EmvQr\DataObjects;
+namespace Arcticfalcon\EmvQr\Test;
 
 use Arcticfalcon\EmvQr\DataObject;
 
-class NullDataObject extends DataObject
+class DataObjectStub extends DataObject
 {
-    public function __construct()
+    public function assert(int $length, int $maxLength, array $possible, string $value)
     {
-        parent::__construct('00', 2, '');
-    }
-
-    public function __toString()
-    {
-        return '';
+        $this->assertLength($length, $value);
+        $this->assertMaxLength($maxLength, $value);
+        $this->assertPossibleValues($possible, $value);
     }
 
     public static function tryParse(string $data)
     {
-        throw new \LogicException();
     }
 
     public static function getStaticId(): string
     {
-        throw new \LogicException();
+        return 'DataObjectStub';
     }
 }
