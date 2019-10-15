@@ -177,7 +177,7 @@ class MerchantPayload
         ];
 
         if (count($mandatoryIds) > count(array_intersect($mandatoryIds, array_keys($parts)))) {
-            throw new EmvQrException('Data may not be valid');
+            throw new EmvQrException('Invalid QR format');
         }
 
         $new->payloadFormatIndicator = PayloadFormatIndicator::tryParse($parts[PayloadFormatIndicator::getStaticId()]);
