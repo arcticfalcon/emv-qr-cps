@@ -166,6 +166,20 @@ class MerchantPayload
         /** @var MerchantPayload $new */
         $new = $reflection->newInstanceWithoutConstructor();
 
+        $mandatoryIds = [
+            PayloadFormatIndicator::getStaticId(),
+            PointOfInitializationMethod::getStaticId(),
+            MerchantCategoryCode::getStaticId(),
+            TransactionCurrency::getStaticId(),
+            CountryCode::getStaticId(),
+            MerchantName::getStaticId(),
+            MerchantCity::getStaticId(),
+        ];
+
+        if (count($mandatoryIds) > count(array_intersect($mandatoryIds, array_keys($parts)))) {
+            throw new EmvQrException('Invalid QR format');
+        }
+
         $new->payloadFormatIndicator = PayloadFormatIndicator::tryParse($parts[PayloadFormatIndicator::getStaticId()]);
         $new->pointOfInitializationMethod = PointOfInitializationMethod::tryParse($parts[PointOfInitializationMethod::getStaticId()]);
         $new->merchantCategoryCode = MerchantCategoryCode::tryParse($parts[MerchantCategoryCode::getStaticId()]);
