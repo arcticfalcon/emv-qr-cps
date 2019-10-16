@@ -143,6 +143,12 @@ class MerchantPayloadTest extends TestCase
         static::assertEquals($original, (string) $qr);
     }
 
+    public function testMandatoryParts()
+    {
+        static::expectException(EmvQrException::class);
+        MerchantPayload::parse('');
+    }
+
     public function testGetters()
     {
         $original = '00020101021248160012com.whatwhat52049700530318854031185502035702105802AR5903OOM6004LAND6104123463040E47';
