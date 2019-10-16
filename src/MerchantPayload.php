@@ -166,8 +166,22 @@ class MerchantPayload
         /** @var MerchantPayload $new */
         $new = $reflection->newInstanceWithoutConstructor();
 
+        $mandatoryIds = [
+            PayloadFormatIndicator::getStaticId(),
+            MerchantCategoryCode::getStaticId(),
+            TransactionCurrency::getStaticId(),
+            CountryCode::getStaticId(),
+            MerchantName::getStaticId(),
+            MerchantCity::getStaticId(),
+            CRC::getStaticId(),
+        ];
+
+        if (count($mandatoryIds) > count(array_intersect($mandatoryIds, array_keys($parts)))) {
+            throw new EmvQrException('Missing mandatory parts');
+        }
+
         $new->payloadFormatIndicator = PayloadFormatIndicator::tryParse($parts[PayloadFormatIndicator::getStaticId()]);
-        $new->pointOfInitializationMethod = PointOfInitializationMethod::tryParse($parts[PointOfInitializationMethod::getStaticId()]);
+        $new->pointOfInitializationMethod = isset($parts[PointOfInitializationMethod::getStaticId()]) ? PointOfInitializationMethod::tryParse($parts[PointOfInitializationMethod::getStaticId()]) : null;
         $new->merchantCategoryCode = MerchantCategoryCode::tryParse($parts[MerchantCategoryCode::getStaticId()]);
         $new->transactionCurrency = TransactionCurrency::tryParse($parts[TransactionCurrency::getStaticId()]);
         $new->transactionAmount = isset($parts[TransactionAmount::getStaticId()]) ? TransactionAmount::tryParse($parts[TransactionAmount::getStaticId()]) : null;
