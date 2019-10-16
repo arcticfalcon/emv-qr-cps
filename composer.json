@@ -1,5 +1,5 @@
 {
-    "name": "arcticfalcon/emv-qr-cps",
+    "name": "digbang/emv-qr-cps",
     "description": "EMV QR Code Specification for Payment Systems: Merchant-Presented Mode",
     "type": "library",
     "keywords": ["emv", "qr", "cps", "merchant"],
